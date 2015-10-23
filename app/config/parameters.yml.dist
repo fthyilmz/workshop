@@ -17,3 +17,16 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    payment:
+           paypal:
+                 name: Paypal
+                 key: paypal
+                 status: active
+           payu:
+                name: Payu
+                key: payu
+                status: active
+           paytrek:
+                name: Paytrek
+                key: paytrek
+                status: active
