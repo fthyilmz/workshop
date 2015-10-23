@@ -39,7 +39,15 @@ class DefaultController extends Controller
 
         if ($paymentForm->isValid()) {
 
-            // payment
+            $paymentData = $paymentForm->getData();
+
+            $payment = $this->get('factory.payment')->create($paymentData);
+
+            $payment->checkCurrency();
+
+            if ($payment->pay()) {
+                $payment->sendVoucher();
+            }
 
             return $this->redirectToRoute('homepage');
         }
