@@ -18,7 +18,18 @@ abstract class Payment
     }
 
     public function sendVoucher() {
-        // Mail
+
+        $mail = \Swift_Message::newInstance()
+            ->setSubject('Payment Successful')
+            ->setFrom('fthyilmz@gmail.com')
+            ->setTo('fatih.yilmaz@tasit.com')
+            ->setBody(
+                $this->template->render('@App/Default/mail.html.twig', ['payment' => $this->paymentData]),
+                'text/html'
+            )
+        ;
+
+        $this->mailer->send($mail);
     }
 
 }
