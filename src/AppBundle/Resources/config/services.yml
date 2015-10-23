@@ -1,0 +1,7 @@
+
+services:
+
+    factory.payment:
+        class: AppBundle\Payment\PaymentFactory
+        arguments: [@service_container]
+
