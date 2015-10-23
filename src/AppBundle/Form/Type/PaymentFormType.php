@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints\Type;
  */
 class PaymentFormType extends AbstractType
 {
+    private $paymentGateway;
+
+    function __construct($paymentGateway)
+    {
+        $this->paymentGateway = $paymentGateway;
+    }
 
     /**
      * Build offer create form
@@ -34,7 +40,7 @@ class PaymentFormType extends AbstractType
                 'paymentGateway',
                 'choice',
                 [
-                    'choices' => [],
+                    'choices' => $this->getPaymentGateway(),
                     'constraints' => array(
                         new NotBlank(),
                     )
@@ -76,5 +82,16 @@ class PaymentFormType extends AbstractType
     public function getName()
     {
         return 'payment';
+    }
+
+    public function getPaymentGateway()
+    {
+        $gateway = array_map(function($value) {
+            if($value['status'] == 'active') {
+                return $value;
+            }
+        }, $this->paymentGateway);
+
+        return array_column($gateway, 'name', 'key');
     }
 }
