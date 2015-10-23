@@ -5,3 +5,19 @@ services:
         class: AppBundle\Payment\PaymentFactory
         arguments: [@service_container]
 
+    abstract.payment:
+        class: AppBundle\Payment\Payment
+        arguments: [@mailer, @twig]
+        abstract: true
+
+    payment.paypal:
+        class: AppBundle\Payment\Paypal
+        parent: abstract.payment
+
+    payment.payu:
+        class: AppBundle\Payment\PayU
+        parent: abstract.payment
+
+    payment.paytrek:
+        class: AppBundle\Payment\Paytrek
+        parent: abstract.payment

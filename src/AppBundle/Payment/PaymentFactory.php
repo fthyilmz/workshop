@@ -19,15 +19,17 @@ class PaymentFactory
         $instance = null;
         switch($paymentData['paymentGateway']){
             case 'paypal':
-                //
+                $instance = $this->container->get('payment.paypal');
             break;
             case 'payu':
-                //
+                $instance = $this->container->get('payment.payu');
             break;
             case 'paytrek':
-                //
+                $instance = $this->container->get('payment.paytrek');
             break;
         }
+
+        $instance->paymentData = $paymentData;
 
         return $instance;
     }
